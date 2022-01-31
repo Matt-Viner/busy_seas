@@ -1,0 +1,213 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Scenes/Components/SceneTransitionRect.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/Components/StartMenu.gd" type="Script" id=2]
+[ext_resource path="res://Assets/TitleCards/sound.png" type="Texture" id=3]
+[ext_resource path="res://Assets/TitleCards/fishy.png" type="Texture" id=4]
+[ext_resource path="res://Assets/TitleCards/GWJ-41-Theme Ocean.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Sprites/lil_boat.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Sprites/title.png" type="Texture" id=7]
+[ext_resource path="res://Assets/SFX/shanty.wav" type="AudioStream" id=8]
+[ext_resource path="res://Scenes/Fonts/Theme.tres" type="Theme" id=9]
+[ext_resource path="res://Assets/Fonts/Poco.ttf" type="DynamicFontData" id=10]
+
+[sub_resource type="Theme" id=1]
+
+[sub_resource type="Animation" id=2]
+resource_name = "fun"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.05, 0.05 ), Vector2( 0.06, 0.06 ), Vector2( 0.05, 0.05 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ -2.0, 2.0, -2.0, 2.0, -2.0 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "fun"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.05, 0.05 ), Vector2( 0.06, 0.06 ), Vector2( 0.05, 0.05 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ -2.0, 2.0, -2.0, 2.0, -2.0 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "spinny"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -10.0, 10.0 ]
+}
+
+[sub_resource type="DynamicFont" id=5]
+size = 6
+font_data = ExtResource( 10 )
+
+[node name="StartMenu" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.388235, 0.607843, 1, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SceneTransitionRect" parent="CanvasLayer" instance=ExtResource( 1 )]
+next_scene_path = "res://Scenes/Levels/Game.tscn"
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -53.0
+margin_top = -47.0
+margin_right = 58.0
+margin_bottom = -27.0
+theme = SubResource( 1 )
+text = "Start Game!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Fishy" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 27, 160 )
+rotation = -0.0349066
+scale = Vector2( 0.05, 0.05 )
+texture = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Fishy"]
+autoplay = "fun"
+anims/fun = SubResource( 2 )
+
+[node name="Sound" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 229, 160 )
+rotation = -0.0349066
+scale = Vector2( 0.05, 0.05 )
+texture = ExtResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Sound"]
+autoplay = "fun"
+anims/fun = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 217, 35 )
+scale = Vector2( 0.05, 0.05 )
+texture = ExtResource( 5 )
+
+[node name="Sprite2" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 125, 50 )
+scale = Vector2( 0.657821, 0.638889 )
+texture = ExtResource( 7 )
+
+[node name="Sprite3" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 46, 53 )
+rotation = -0.174533
+scale = Vector2( 2, 2 )
+texture = ExtResource( 6 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Sprite3"]
+autoplay = "spinny"
+anims/spinny = SubResource( 4 )
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -89.0
+margin_top = 2.0
+margin_right = 90.0
+margin_bottom = 41.0
+rect_pivot_offset = Vector2( 121, 29 )
+theme = ExtResource( 9 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "How to Play: Move with the Arrow Keys!
+Stay in dark waters to catch fish, avoid other boats and Pirates!
+Try to catch as much fish as you can in 60 seconds!"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 61.0
+margin_top = -80.0
+margin_right = 119.0
+margin_bottom = -67.0
+rect_pivot_offset = Vector2( 121, 29 )
+theme = ExtResource( 9 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "Godot Wild Jam 41"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = -25.0
+
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_Button_pressed"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_AudioStreamPlayer_finished"]

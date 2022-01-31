@@ -1,0 +1,144 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Scenes/Player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Tilemaps/TileMap.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Environment/SmallRocks.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Components/FishingZoneSpawner.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Levels/Game.gd" type="Script" id=5]
+[ext_resource path="res://Scenes/Components/BoatSpawner.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Assets/Fonts/Poco.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://Scenes/Fonts/Theme.tres" type="Theme" id=8]
+[ext_resource path="res://Scenes/Components/SceneTransitionRect.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/SFX/game over.wav" type="AudioStream" id=10]
+[ext_resource path="res://Assets/SFX/bgm.wav" type="AudioStream" id=11]
+
+[sub_resource type="DynamicFont" id=2]
+size = 24
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFontData" id=3]
+antialiased = false
+font_path = "res://Assets/Fonts/Poco.ttf"
+
+[sub_resource type="DynamicFont" id=4]
+size = 24
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+use_mipmaps = true
+use_filter = true
+extra_spacing_bottom = 5
+font_data = SubResource( 3 )
+
+[node name="Game" type="Node2D"]
+script = ExtResource( 5 )
+
+[node name="TileMap" parent="." instance=ExtResource( 2 )]
+tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0, 65543, 0, 0, 65544, 0, 0, 65545, 0, 0, 65546, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 131080, 0, 0, 131081, 0, 0, 131082, 0, 0, 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 0, 0, 196615, 0, 0, 196616, 0, 0, 196617, 0, 0, 196618, 0, 0, 262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 0, 0, 262154, 0, 0, 327680, 0, 0, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 0, 0, 327686, 0, 0, 327687, 0, 0, 327688, 0, 0, 327689, 0, 0, 327690, 0, 0, 393216, 0, 0, 393217, 0, 0, 393218, 0, 0, 393219, 0, 0, 393220, 0, 0, 393221, 0, 0, 393222, 0, 0, 393223, 0, 0, 393224, 0, 0, 393225, 0, 0, 393226, 0, 0, 458752, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0, 458762, 0, 0, 524288, 0, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0, 524298, 0, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 589830, 0, 0, 589831, 0, 0, 589832, 0, 0, 589833, 0, 0, 589834, 0, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 0, 655364, 0, 0, 655365, 0, 0, 655366, 0, 0, 655367, 0, 0, 655368, 0, 0, 655369, 0, 0, 655370, 0, 0 )
+
+[node name="Limits" type="Node" parent="."]
+
+[node name="TLLimit" type="Position2D" parent="Limits"]
+
+[node name="BRLimit" type="Position2D" parent="Limits"]
+position = Vector2( 352, 352 )
+
+[node name="FishingZoneSpawner" parent="." instance=ExtResource( 4 )]
+
+[node name="YSort" type="YSort" parent="."]
+
+[node name="Player" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 162, 120 )
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="YSort/Player"]
+remote_path = NodePath("../../../Camera2D")
+
+[node name="Rocks" type="YSort" parent="YSort"]
+
+[node name="SmallRocks" parent="YSort/Rocks" instance=ExtResource( 3 )]
+position = Vector2( 43, 156 )
+
+[node name="SmallRocks5" parent="YSort/Rocks" instance=ExtResource( 3 )]
+position = Vector2( 173, 287 )
+
+[node name="SmallRocks2" parent="YSort/Rocks" instance=ExtResource( 3 )]
+position = Vector2( 75, 254 )
+
+[node name="SmallRocks3" parent="YSort/Rocks" instance=ExtResource( 3 )]
+position = Vector2( 257, 87 )
+
+[node name="SmallRocks4" parent="YSort/Rocks" instance=ExtResource( 3 )]
+position = Vector2( 79, 83 )
+
+[node name="SmallRocks10" parent="YSort/Rocks" instance=ExtResource( 3 )]
+position = Vector2( 297, 155 )
+
+[node name="SmallRocks11" parent="YSort/Rocks" instance=ExtResource( 3 )]
+position = Vector2( 255, 258 )
+
+[node name="SmallRocks12" parent="YSort/Rocks" instance=ExtResource( 3 )]
+position = Vector2( 174, 37 )
+
+[node name="BoatSpawner" parent="YSort" instance=ExtResource( 6 )]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 162, 120 )
+current = true
+process_mode = 0
+
+[node name="GameTimer" type="Timer" parent="."]
+wait_time = 61.0
+one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TimeLabel" type="Label" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -21.5
+margin_right = 21.5
+margin_bottom = 30.0
+theme = ExtResource( 8 )
+custom_fonts/font = SubResource( 2 )
+text = "TIME"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer"]
+modulate = Color( 0.862745, 1, 0, 1 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -28.0
+margin_top = -35.0
+margin_right = 28.0
+theme = ExtResource( 8 )
+custom_fonts/font = SubResource( 4 )
+text = "Score"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SceneTransitionRect" parent="CanvasLayer" instance=ExtResource( 9 )]
+next_scene_path = "res://Scenes/Levels/GameOver.tscn"
+
+[node name="GameOverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+volume_db = -15.0
+pitch_scale = 1.2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+volume_db = -5.0
+
+[connection signal="timeout" from="GameTimer" to="." method="_on_GameTimer_timeout"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_AudioStreamPlayer_finished"]

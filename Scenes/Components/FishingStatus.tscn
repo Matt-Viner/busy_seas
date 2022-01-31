@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/Components/FishingStatus.gd" type="Script" id=1]
+[ext_resource path="res://Assets/SFX/ding.wav" type="AudioStream" id=2]
+
+[node name="FishingStatus" type="Node"]
+script = ExtResource( 1 )
+
+[node name="FishingTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.5
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = 10.0
+pitch_scale = 1.5
+
+[connection signal="timeout" from="FishingTimer" to="." method="_on_FishingTimer_timeout"]

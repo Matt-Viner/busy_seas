@@ -1,0 +1,119 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/Fishing/FishingZone.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Sprites/fishing_zone.png" type="Texture" id=2]
+
+[sub_resource type="CapsuleShape2D" id=4]
+radius = 26.0
+height = 52.0
+
+[sub_resource type="Animation" id=2]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Icon:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Icon:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "squash_and_stretch"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Icon:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1.5, 1.5 ), Vector2( 1.45, 1.55 ), Vector2( 1.5, 1.5 ), Vector2( 1.55, 1.45 ), Vector2( 1.5, 1.5 ) ]
+}
+
+[node name="FishingZone" type="Area2D"]
+scale = Vector2( 0.5, 0.5 )
+collision_layer = 0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Icon" type="Sprite" parent="."]
+scale = Vector2( 1.5, 1.5 )
+z_index = -1
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "fade_in"
+anims/fade_in = SubResource( 2 )
+anims/fade_out = SubResource( 3 )
+
+[node name="RandomTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="SquashnStretchPlayer" type="AnimationPlayer" parent="."]
+autoplay = "squash_and_stretch"
+anims/squash_and_stretch = SubResource( 5 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 10
+emission_shape = 1
+emission_sphere_radius = 25.0
+gravity = Vector2( 0, 0 )
+
+[connection signal="body_entered" from="." to="." method="_on_FishingZone_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_FishingZone_body_exited"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="timeout" from="RandomTimer" to="." method="_on_RandomTimer_timeout"]

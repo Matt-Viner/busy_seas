@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Assets/Sprites/lil_boat.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/Player/Player.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/Components/AnimateTween.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Components/ParticleSpawn.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Components/FishingStatus.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Assets/SFX/ow.wav" type="AudioStream" id=6]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 6.0
+height = 10.0
+
+[sub_resource type="Animation" id=3]
+resource_name = "flashing"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Boat:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ true, false, true, false, true, false, true ]
+}
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 2 )
+
+[node name="MovementCollision" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="Boat" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+offset = Vector2( 0, -10 )
+
+[node name="AnimateTween" parent="Boat" instance=ExtResource( 3 )]
+
+[node name="FishingStatus" parent="." instance=ExtResource( 5 )]
+
+[node name="StunnedTimer" type="Timer" parent="."]
+process_mode = 0
+wait_time = 0.5
+
+[node name="CPUParticles2D" parent="." instance=ExtResource( 4 )]
+
+[node name="Flasher" type="AnimationPlayer" parent="."]
+anims/flashing = SubResource( 3 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = 10.0
+pitch_scale = 1.2
+
+[connection signal="timeout" from="StunnedTimer" to="." method="_on_StunnedTimer_timeout"]

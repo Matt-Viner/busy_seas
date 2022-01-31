@@ -1,0 +1,132 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Scenes/Components/SceneTransitionRect.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/Components/GameOver.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Fonts/Poco.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Assets/SFX/shanty.wav" type="AudioStream" id=4]
+
+[sub_resource type="Theme" id=1]
+
+[sub_resource type="DynamicFontData" id=2]
+antialiased = false
+font_path = "res://Assets/Fonts/Poco.ttf"
+
+[sub_resource type="DynamicFont" id=3]
+use_mipmaps = true
+use_filter = true
+font_data = SubResource( 2 )
+
+[sub_resource type="DynamicFont" id=4]
+use_mipmaps = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="Theme" id=5]
+
+[sub_resource type="DynamicFontData" id=6]
+antialiased = false
+font_path = "res://Assets/Fonts/Poco.ttf"
+
+[sub_resource type="DynamicFont" id=7]
+use_mipmaps = true
+font_data = SubResource( 6 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 12
+use_mipmaps = true
+font_data = ExtResource( 3 )
+
+[node name="GameOver" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -46.5
+margin_top = 20.0
+margin_right = 46.5
+margin_bottom = 34.0
+theme = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "Game Over!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SceneTransitionRect" parent="CanvasLayer" instance=ExtResource( 1 )]
+visible = false
+next_scene_path = "res://Scenes/Levels/Game.tscn"
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -58.5
+margin_top = -92.0
+margin_right = 58.5
+margin_bottom = -42.0
+text = "Play Again"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MaxScoreLabel" type="Label" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -70.0
+margin_top = -44.0
+margin_right = 3.0
+margin_bottom = -30.0
+custom_fonts/font = SubResource( 4 )
+text = "Max Score: "
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="YourScoreLabel" type="Label" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -74.0
+margin_top = -26.0
+margin_right = 36.0
+margin_bottom = 19.0
+theme = SubResource( 5 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 7 )
+text = "Your Score:"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -120.0
+margin_top = -35.0
+margin_right = 120.0
+custom_fonts/font = SubResource( 8 )
+text = "Credits : Art, Programming and Sound : Lammt
+Sound: Mufty"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -25.0
+
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_Button_pressed"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_AudioStreamPlayer_finished"]
